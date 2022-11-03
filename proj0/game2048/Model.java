@@ -138,16 +138,14 @@ public class Model extends Observable {
      * */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
-        boolean ret = false;
         for (int col = 0; col < b.size(); col += 1) {
             for (int row = 0; row < b.size(); row += 1) {
                 if (b.tile(col, row) == null) {
-                    ret = true;
-                    return ret;
+                    return true;
                 }
             }
         }
-        return ret;
+        return false;
     }
 
     /**
@@ -158,16 +156,14 @@ public class Model extends Observable {
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
         int MAX_PIECE = 2048;
-        boolean ret = false;
         for (int col = 0; col < b.size(); col += 1) {
             for (int row = 0; row < b.size(); row += 1) {
                 if (b.tile(col, row) != null && b.tile(col, row).value() == 2048) {
-                    ret = true;
-                    return ret;
+                    return true;
                 }
             }
         }
-        return ret;
+        return false;
     }
 
     /**
