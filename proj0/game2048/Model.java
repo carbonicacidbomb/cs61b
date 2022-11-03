@@ -181,15 +181,15 @@ public class Model extends Observable {
         if (emptySpaceExists(b)) {
             return true;
         }
-        for (int col = 0; col < b.size() - 1; col += 1) {
+        for (int col = 0; col < b.size(); col += 1) {
             for (int row = 0; row < b.size() - 1; row += 1) {
                 if (b.tile(col, row) != null && b.tile(col, row + 1) != null) {
-                    if (b.tile(col, row) == b.tile(col, row + 1)){
+                    if (b.tile(col, row).value() == b.tile(col, row + 1).value()){
                        return true;
                     }
                 }
-                if (b.tile(row, col) != null && b.tile(row, col + 1) != null) {
-                    if (b.tile(row, col) == b.tile(row, col + 1)){
+                if (b.tile(row, col) != null && b.tile(row + 1, col) != null) {
+                    if (b.tile(row, col).value() == b.tile(row + 1, col).value()){
                         return true;
                     }
                 }
