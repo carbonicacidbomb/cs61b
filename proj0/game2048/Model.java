@@ -5,7 +5,7 @@ import java.util.Observable;
 
 
 /** The state of a game of 2048.
- *  @author TODO: YOUR NAME HERE
+ *  @author lsq
  */
 public class Model extends Observable {
     /** Current contents of the board. */
@@ -109,11 +109,39 @@ public class Model extends Observable {
     public boolean tilt(Side side) {
         boolean changed;
         changed = false;
+        board.setViewingPerspective(side);
+        for (int c = 0; c < board.size(); c += 1) {
+            boolean[] m = new boolean[board.size()];
+            for (int x = 0; x < m.length; x ++){
+                m[x] = false;
+            }
+            for (int r = board.size() - 2; r >= 0; r -= 1) {
+                if (board.tile(c, r) != null) {
+                    for (int i = r + 1; i < board.size(); i += 1) {
+                        if (board.tile(c, i) != null) {
+                            if (board.tile(c, i).value() == board.tile(c, r).value() && m[i] != true) {
+                                changed = true;
+                                m[i]= board.move(c, i, board.tile(c, r));
+                                score += board.tile(c,i).value();
+                            }else if (i - r != 1) {
+                                changed = true;
+                                m[i - 1] = board.move(c, i - 1, board.tile(c, r));
+                            }break;
+                        }else{
+                            if (i == board.size() -1) {
+                                changed = true;
+                                board.move(c, i, board.tile(c, r));
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
-
+        board.setViewingPerspective(Side.NORTH);
         checkGameOver();
         if (changed) {
             setChanged();
@@ -155,10 +183,9 @@ public class Model extends Observable {
      */
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
-        int MAX_PIECE = 2048;
         for (int col = 0; col < b.size(); col += 1) {
             for (int row = 0; row < b.size(); row += 1) {
-                if (b.tile(col, row) != null && b.tile(col, row).value() == 2048) {
+                if (b.tile(col, row) != null && b.tile(col, row).value() == MAX_PIECE) {
                     return true;
                 }
             }
