@@ -34,7 +34,7 @@ public class TimeSLList {
             exam.addLast(n);
             while (i == n) {
                 Stopwatch sw = new Stopwatch();
-                for (int x = 0; x < op; x++) {
+                for (int x = 0; x < op; x += 1) {
                     exam.getLast();
                 }
                 double timeInSeconds = sw.elapsedTime();
