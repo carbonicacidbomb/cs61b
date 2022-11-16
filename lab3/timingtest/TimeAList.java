@@ -27,19 +27,20 @@ public class TimeAList {
         AList<Double> times = new AList<>();
         AList<Integer> opCounts = new AList<>();
         AList<Integer> exam = new AList<>();
-        int n = 0;
         int i = 1000;
-        Stopwatch sw = new Stopwatch();
-        while (n <= 64000) {
-            n += 1;
-            exam.addLast(n);
-            while (i == n) {
-                Ns.addLast(n);
-                double timeInSeconds = sw.elapsedTime();
-                times.addLast(timeInSeconds);
-                opCounts.addLast(n);
-                i *= 2;
+        int n = 1;
+        double timeInSeconds = 0;
+        while (i <= 128000) {
+            Stopwatch sw = new Stopwatch();
+            while (n <= i) {
+                exam.addLast(n);
+                n += 1;
             }
+            timeInSeconds += sw.elapsedTime();
+            times.addLast(timeInSeconds);
+            Ns.addLast(i);
+            opCounts.addLast(i);
+            i *= 2;
         }
         printTimingTable(Ns, times, opCounts);
     }
