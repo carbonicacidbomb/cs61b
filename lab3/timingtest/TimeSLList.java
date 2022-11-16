@@ -29,7 +29,7 @@ public class TimeSLList {
         SLList<Integer> exam = new SLList<>();
         int i = 1000;
         int n = 1;
-        int op = 1000;
+        int op = 10000;
         while (n <= 128000) {
             exam.addLast(n);
             while (i == n) {
