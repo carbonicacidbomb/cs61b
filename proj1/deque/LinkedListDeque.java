@@ -83,7 +83,12 @@ public class LinkedListDeque<T> implements TheDequeAPI<T> {
         Node x = sentinel.next;
         sentinel.next = x.next;
         x.next.prev = sentinel;
-        return x.item;
+        if (x != sentinel) {
+            size -= 1;
+            return x.item;
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -92,7 +97,12 @@ public class LinkedListDeque<T> implements TheDequeAPI<T> {
         Node x = sentinel.prev;
         sentinel.prev = x.prev;
         x.prev.next = sentinel;
-        return x.item;
+        if (x != sentinel) {
+            size -= 1;
+            return x.item;
+        } else {
+            return null;
+        }
     }
 
     @Override
