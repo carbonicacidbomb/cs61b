@@ -83,7 +83,7 @@ public class ArrayDeque<T> implements TheDequeAPI<T> {
     public void printDeque() {
         int i = 0;
         while (i < size) {
-            System.out.print(array[set(nextFirst + 1 + i)]);
+            System.out.print(array[set(nextFirst + 1 + i)] + " ");
             i += 1;
         }
         System.out.println();

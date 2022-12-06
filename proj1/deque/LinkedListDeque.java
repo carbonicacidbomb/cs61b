@@ -1,7 +1,5 @@
 package deque;
 
-import afu.org.checkerframework.checker.oigj.qual.O;
-
 public class LinkedListDeque<T> implements TheDequeAPI<T> {
     private class Node {
        public T item;
@@ -71,7 +69,7 @@ public class LinkedListDeque<T> implements TheDequeAPI<T> {
     public void printDeque() {
         Node p = sentinel.next;
         while (p != sentinel) {
-            System.out.print(p.item);
+            System.out.print(p.item + " ");
             p = p.next;
         }
         System.out.println();
