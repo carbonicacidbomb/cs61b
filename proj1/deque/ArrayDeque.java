@@ -18,6 +18,9 @@ public class ArrayDeque<T> implements TheDequeAPI<T> {
 
     /** Set the index */
     private int set(int index) {
+        if (index < 0) {
+            index += cap;
+        }
         return index % cap;
     }
 
@@ -27,7 +30,7 @@ public class ArrayDeque<T> implements TheDequeAPI<T> {
         int i = set(nextFirst + 1);
         int x = 0;
         while (x < size) {
-            array[i] = a[x];
+            a[x] = array[i];
             x += 1;
             i = set(i + 1);
         }
@@ -40,7 +43,7 @@ public class ArrayDeque<T> implements TheDequeAPI<T> {
     @Override
     /** Adds item to the front of the list. */
     public void addFirst(T item) {
-        if (nextLast == set(nextFirst + 1)) {
+        if (size == cap) {
             resize(size * 2);
         }
         array[nextFirst] = item;
@@ -51,7 +54,7 @@ public class ArrayDeque<T> implements TheDequeAPI<T> {
     @Override
     /** Adds an item of type T to the back of the deque. */
     public void addLast(T item){
-        if (nextLast == set(nextFirst + 1)){
+        if (size == cap){
             resize(size * 2);
         }
         array[nextLast] = item;
@@ -62,12 +65,11 @@ public class ArrayDeque<T> implements TheDequeAPI<T> {
     @Override
     /** Returns true if deque is empty, false otherwise. */
     public boolean isEmpty() {
-        for (int i = 0; i < cap; i += 1) {
-            if (array[i] != null) {
-                return false;
-            }
+        if (size == 0) {
+            return true;
+        } else {
+            return false;
         }
-        return true;
     }
 
     @Override
@@ -90,25 +92,35 @@ public class ArrayDeque<T> implements TheDequeAPI<T> {
     @Override
     /** Removes and returns the item at the front of the deque. */
     public T removeFirst() {
-        T first = array[set(nextFirst + 1)];
-        array[set(nextFirst + 1)] = null;
-        size -= 1;
-        if (cap > 16 && size < cap / 4) {
-            resize(size * 2);
+        if (size == 0) {
+           return null;
+        } else {
+            T first = array[set(nextFirst + 1)];
+            array[set(nextFirst + 1)] = null;
+            size -= 1;
+            nextFirst = set(nextFirst + 1);
+            if (cap > 16 && size < cap / 4) {
+                resize(size * 2);
+            }
+            return first;
         }
-        return first;
     }
 
     @Override
     /** Removes and returns the item at the back of the deque. */
     public T removeLast() {
-        T last = array[set(nextLast - 1)];
-        array[set(nextLast - 1)] = null;
-        size -= 1;
-        if (cap > 16 && size < cap / 4) {
-            resize(size * 2);
+        if (size == 0) {
+            return null;
+        } else {
+            T last = array[set(nextLast - 1)];
+            array[set(nextLast - 1)] = null;
+            size -= 1;
+            nextLast = set(nextLast - 1);
+            if (cap > 16 && size < cap / 4) {
+                resize(size * 2);
+            }
+            return last;
         }
-        return last;
     }
 
     @Override
